@@ -14,19 +14,12 @@ The last database operation should flush the change before calling the eventPubl
 constraint, the publisher won't be invoked.
 
 ```java
-jpa.save(user);
-jpa.
-
-save(user1);
-jpa.
-
-save(user2);
+repo.save(user);
+repo.save(user1);
+repo.save(user2);
 //If there any constraint issues, this will encounter exception and won't proceed on publishing.
 //In this scenario, if you are using normal jpa.save, flush and commit happens at the end of transaction which leads invoking the eventPublisher first before encountering an error.
-jpa.
-
-saveAndFlush(user3); 
-        
+repo.saveAndFlush(user3);
 eventPublisher.
 
 publish(List.of(users))
