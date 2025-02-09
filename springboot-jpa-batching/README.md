@@ -15,7 +15,7 @@ spring:
 `hibernate.jdbc.batch_size`: Sets the batch size.
 `hibernate.order_inserts` and `hibernate.order_updates`: Ensure that inserts and updates are ordered, which is necessary for batching to work.
 
-### Updating objects to add a new associated object without @Transactional
+### Updating objects to add a new object to it without @Transactional
 This usually happens when you perform your database operations outside @Transactional.
 
 ### Hibernate’s Dirty Checking Mechanism
