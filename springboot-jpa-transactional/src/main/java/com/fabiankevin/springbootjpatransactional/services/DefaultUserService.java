@@ -6,7 +6,6 @@ import com.fabiankevin.springbootjpatransactional.persistence.UserEntity;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,26 +13,22 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class DefaultUserService implements UserService {
     private final JpaUserRepository jpaUserRepository;
     private final UserEventPublisher userEventPublisher;
 
     @Override
-    @Transactional(dontRollbackOn = {ConstraintViolationException.class})
-    public User save(User user) {
+    public User save(CreateUserCommand command) {
         UserEntity entity = new UserEntity();
-        entity.setName(user.getName());
-        entity.setEmail(user.getEmail());
-        entity.setBirthDate(user.getBirthDate());
-        UserEntity savedUser = jpaUserRepository.saveAndFlush(entity);
-        try {
-//            userEventPublisher.publish(user);
-            jpaUserRepository.saveAndFlush(entity.toBuilder().id(null).build());
-        } catch (RuntimeException e) {
-            log.error("encountered an error {} {}", e.getMessage(), e.getCause().toString());
-        }
+        entity.setName(command.getName());
+        entity.setEmail(command.getEmail());
+        entity.setBirthDate(command.getBirthDate());
+        UserEntity savedUser = jpaUserRepository.save(entity);
+        User user = toUser(savedUser);
+        userEventPublisher.publish(user);
 
-        return toUser(savedUser);
+        return user;
     }
 
     @Override

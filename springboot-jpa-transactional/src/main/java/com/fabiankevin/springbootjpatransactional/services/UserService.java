@@ -5,7 +5,7 @@ import com.fabiankevin.springbootjpatransactional.models.User;
 import java.util.List;
 
 public interface UserService {
-    User save(User user);
+    User save(CreateUserCommand user);
 
     List<User> retrieveAll();
 }
