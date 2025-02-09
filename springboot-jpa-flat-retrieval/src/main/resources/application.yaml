@@ -1,0 +1,9 @@
+spring:
+  jpa:
+    properties:
+      hibernate:
+        order_inserts: true
+        order_updates: true
+        generate_statistics: false
+        jdbc:
+          batch_size: 1000

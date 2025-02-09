@@ -9,17 +9,9 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class GemFlatDto {
+public class FlatGemDto {
     private Long id;
     private UUID rrn;
     private String name;
     private String owner;
-//    private String color;
-//    //    high, low, medium
-//    private String clarity;
-//    //    round, oval, emerald, or princess cut
-//    private String cut;
-//    private String jsonPrices;
-//    private Instant createdDate;
-//    private GemStatus status;
 }

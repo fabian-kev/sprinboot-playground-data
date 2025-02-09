@@ -26,13 +26,7 @@ public class GemEntity {
     private String clarity;
     //    round, oval, emerald, or princess cut
     private String cut;
-    @Column(columnDefinition = "JSON")
-    @Convert(converter = JsonAttributeConverter.class)
-    private Set<Amount> prices;
     private Instant createdDate;
-    @Enumerated(EnumType.STRING)
-    private GemStatus status;
-
     @OneToMany(mappedBy = "gem", cascade = CascadeType.ALL)
     private Set<HistoryEntity> histories = new HashSet<>();
 

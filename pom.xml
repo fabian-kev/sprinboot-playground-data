@@ -34,7 +34,7 @@
         <module>spring-caching-ehcache</module>
         <module>spring-caching-redis</module>
         <module>springboot-jpa-batching</module>
-        <module>springboot-jpa-integration-test</module>
+        <module>springboot-jpa-flat-retrieval</module>
         <module>springboot-jpa-transactional</module>
         <module>springboot-multiple-datasources</module>
         <module>springboot-spring-data-jpa-persisting-entities</module>
