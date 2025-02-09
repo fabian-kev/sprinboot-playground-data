@@ -61,7 +61,7 @@ class SpringbootJpaBatchingApplicationTests {
 
         studentRepository.saveAllAndFlush(studentsWithAddress);
         List<StudentEntity> all = studentRepository.findAll();
-        assertEquals(100_000, all.size());
+        assertEquals(1_000_000, all.size());
     }
 
 }
