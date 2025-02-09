@@ -1,0 +1,8 @@
+#spring:
+#  profiles:
+#    active: h2
+#
+#
+##spring:
+##  jpa:
+##    defer-datasource-initialization: true

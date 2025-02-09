@@ -1,0 +1,11 @@
+spring:
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+  cache:
+    jcache:
+      config: classpath:ehcache.xml
+logging:
+  level:
+    com.fabiankevin: DEBUG
+
+

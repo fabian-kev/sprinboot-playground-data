@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  redis-server:
+    image: redis:latest
+    container_name: redis-server
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+
+#  redis-client:
+#    image: redis:latest
+#    container_name: redis-client
+#    depends_on:
+#      - redis-server
+#    entrypoint: [ "redis-cli", "-h", "redis-server" ]
+
+volumes:
+  redis-data:

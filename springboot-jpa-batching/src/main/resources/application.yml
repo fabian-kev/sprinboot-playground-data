@@ -1,0 +1,19 @@
+logging:
+  level:
+    com.fabiankevin: DEBUG
+#    org.hibernate: DEBUG
+
+spring:
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: false
+        order_inserts: true
+        order_updates: true
+        generate_statistics: true
+        jdbc:
+          batch_size: 3
+
+#  spring.jpa.properties.hibernate.jdbc.batch_size=4
+#  spring.jpa.properties.hibernate.order_inserts=true

@@ -1,0 +1,31 @@
+server:
+  port: 8081
+
+app:
+  second:
+    datasource:
+      url: jdbc:postgresql://localhost:5432/postgres?currentSchema=postgres
+      username: postgres
+      password: postgres
+      driver-class-name: org.postgresql.Driver
+      configuration:
+        maximum-pool-size: 30
+    jpa:
+      hibernate:
+        ddl-auto: create-drop
+spring:
+  datasource:
+    url: jdbc:h2:file:./springboot-multiple-datasources/db/weather-db
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+    hikari:
+      maximum-pool-size: 30
+  jpa:
+
+    properties:
+      #      hibernate-ddl-auto: create-drop
+      hibernate.hbm2ddl.auto: create-drop
+    show-sql: false
+    database-platform: org.hibernate.dialect.H2Dialect
+

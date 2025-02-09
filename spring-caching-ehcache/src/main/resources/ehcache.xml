@@ -1,0 +1,7 @@
+<config xmlns="http://www.ehcache.org/v3">
+    <cache alias="users">
+        <resources>
+            <offheap unit="GB">1</offheap>
+        </resources>
+    </cache>
+</config>
