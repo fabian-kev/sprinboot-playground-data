@@ -1,7 +1,6 @@
 logging:
   level:
     com.fabiankevin: DEBUG
-#    org.hibernate: DEBUG
 
 spring:
   jpa:
@@ -13,7 +12,4 @@ spring:
         order_updates: true
         generate_statistics: true
         jdbc:
-          batch_size: 3
-
-#  spring.jpa.properties.hibernate.jdbc.batch_size=4
-#  spring.jpa.properties.hibernate.order_inserts=true
+          batch_size: 5000

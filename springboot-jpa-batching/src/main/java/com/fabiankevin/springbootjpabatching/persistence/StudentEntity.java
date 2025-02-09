@@ -1,12 +1,11 @@
 package com.fabiankevin.springbootjpabatching.persistence;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Table(name = "students")
@@ -15,6 +14,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder(toBuilder = true)
 @Data
+@EqualsAndHashCode(exclude = {"addresses"})
+@ToString(exclude = {"addresses"})
 public class StudentEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Id
@@ -23,4 +24,11 @@ public class StudentEntity {
     private Integer age;
     private String status;
     private Instant createdDate;
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "student")
+    private Set<AddressEntity> addresses = new HashSet<>();
+
+    public void addAddress(AddressEntity addressEntity) {
+        addressEntity.setStudent(this);
+        this.addresses.add(addressEntity);
+    }
 }
