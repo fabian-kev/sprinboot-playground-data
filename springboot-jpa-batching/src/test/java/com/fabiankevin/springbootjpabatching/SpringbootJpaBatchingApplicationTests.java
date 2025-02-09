@@ -21,9 +21,6 @@ class SpringbootJpaBatchingApplicationTests {
     @Autowired
     private StudentRepository studentRepository;
 
-    @Autowired
-    private BatchStatementInspector batchStatementInspector;
-
     @Test
     void saveAll() {
         List<StudentEntity> studentEntities = IntStream.range(0, 10).boxed()
@@ -43,7 +40,7 @@ class SpringbootJpaBatchingApplicationTests {
     @Test
     @Transactional
     void saveAll_givenAddingAddressToStudents_thenShouldExecuteInBatch() {
-        List<StudentEntity> studentEntities = IntStream.range(0, 5).boxed()
+        List<StudentEntity> studentEntities = IntStream.range(0, 1_000_000).boxed()
                 .map(i -> {
                     StudentEntity studentEntity = new StudentEntity();
                     studentEntity.setAge(18);
@@ -63,9 +60,8 @@ class SpringbootJpaBatchingApplicationTests {
                 }).collect(Collectors.toSet());
 
         studentRepository.saveAllAndFlush(studentsWithAddress);
-//
-//        List<StudentEntity> all = studentRepository.findAll();
-//        assertEquals(100_000, all.size());
+        List<StudentEntity> all = studentRepository.findAll();
+        assertEquals(100_000, all.size());
     }
 
 }
