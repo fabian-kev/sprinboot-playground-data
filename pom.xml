@@ -37,7 +37,6 @@
         <module>springboot-jpa-flat-retrieval</module>
         <module>springboot-jpa-transactional</module>
         <module>springboot-multiple-datasources</module>
-        <module>springboot-spring-data-jpa-persisting-entities</module>
         <module>springboot-jpa-flushing</module>
         <module>springboot-jpa-structural-concurrency</module>
     </modules>
