@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: springboot-jpa-structural-concurrency
+  threads:
+    virtual:
+      enabled: true
+  jpa:
+    properties:
+      hibernate:
+        order_inserts: true
+        order_updates: true
+        generate_statistics: true
+        jdbc:
+          batch_size: 10_000
