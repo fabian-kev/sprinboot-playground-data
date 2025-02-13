@@ -1,4 +1,4 @@
-package com.fabiankevin.springboot_multiple_datasources.persistence.first;
+package com.fabiankevin.springboot_multiple_datasources.persistence.primary;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
