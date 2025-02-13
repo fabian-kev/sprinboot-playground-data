@@ -5,9 +5,8 @@ app:
   datasource:
     secondary:
       url: jdbc:h2:file:./springboot-multiple-datasources/db/db-2
-      jdbcUrl: jdbc:h2:file:./springboot-multiple-datasources/db/db-2
       driverClassName: org.h2.Driver
-      configuration:
+      hikari:
         maximum-pool-size: 30
 
 spring:
@@ -17,9 +16,7 @@ spring:
     hikari:
       maximum-pool-size: 30
   jpa:
-
     properties:
-      #      hibernate-ddl-auto: create-drop
       hibernate.hbm2ddl.auto: create-drop
     show-sql: false
     database-platform: org.hibernate.dialect.H2Dialect
