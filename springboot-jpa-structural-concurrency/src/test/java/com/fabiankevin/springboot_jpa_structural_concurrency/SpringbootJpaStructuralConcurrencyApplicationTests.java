@@ -37,6 +37,7 @@ class SpringbootJpaStructuralConcurrencyApplicationTests {
 
     @Test
     void contextLoads() {
+
         service.run();
 
         long count = customerRepository.count(Example.of(

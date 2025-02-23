@@ -9,6 +9,6 @@ spring:
       hibernate:
         order_inserts: true
         order_updates: true
-        generate_statistics: true
+        generate_statistics: false
         jdbc:
-          batch_size: 10_000
+          batch_size: 100_000

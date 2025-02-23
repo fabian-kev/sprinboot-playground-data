@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -23,13 +25,14 @@ public class CustomerBatchUsingClassicStructuralConcurrencyPartitioner {
     private final ChunkExecutor chunkExecutor;
 
     public void run() {
-        ExecutorService executor = Executors.newFixedThreadPool(10);
+        Instant now = Instant.now();
+        ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
         try {
-            int gridSize = 10;
+            int gridSize = 200;
             List<CustomerEntity> customerEntities;
-            while (!(customerEntities = customerRepository.findAllByStatus("PENDING", PageRequest.ofSize(50_000))).isEmpty()) {
+            while (!(customerEntities = customerRepository.findAllByStatus("PENDING", PageRequest.ofSize(100_000))).isEmpty()) {
                 List<List<CustomerEntity>> partitionedCustomers = new ArrayList<>();
-                int partitionSize = 5000;
+                int partitionSize = 500;
                 for (int i = 0; i < gridSize; i++) {
                     partitionedCustomers.add(customerEntities.subList(partitionSize * i, partitionSize * (i+1)));
                 }
@@ -47,7 +50,7 @@ public class CustomerBatchUsingClassicStructuralConcurrencyPartitioner {
                 // Wait for all tasks to complete
                 allTasks.join();
             }
-
+            log.info("Run Duration: {}", Duration.between(Instant.now(), now));
         } finally {
             executor.shutdown();
         }
