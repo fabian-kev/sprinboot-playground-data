@@ -39,6 +39,7 @@
         <module>springboot-multiple-datasources</module>
         <module>springboot-jpa-flushing</module>
         <module>springboot-jpa-structural-concurrency</module>
+        <module>springboot-jpa-stream</module>
     </modules>
 
 </project>

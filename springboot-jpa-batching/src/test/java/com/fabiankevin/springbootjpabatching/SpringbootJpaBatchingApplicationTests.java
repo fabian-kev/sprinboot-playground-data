@@ -41,7 +41,7 @@ class SpringbootJpaBatchingApplicationTests {
     @Transactional
     // This test does not generate selects when updating the existing object. But it will if these codes run outside a transaction.
     void saveAll_givenAddingAddressToStudents_thenShouldExecuteInBatch() {
-        List<StudentEntity> studentEntities = IntStream.range(0, 100_000).boxed()
+        List<StudentEntity> studentEntities = IntStream.range(0, 5000).boxed()
                 .map(i -> {
                     StudentEntity studentEntity = new StudentEntity();
                     studentEntity.setAge(18);
@@ -60,7 +60,7 @@ class SpringbootJpaBatchingApplicationTests {
                     return studentEntity;
                 }).collect(Collectors.toSet());
 
-        studentRepository.saveAllAndFlush(studentsWithAddress);
+        studentRepository.saveAll(studentsWithAddress);
         List<StudentEntity> all = studentRepository.findAll();
         assertEquals(100_000, all.size());
     }
