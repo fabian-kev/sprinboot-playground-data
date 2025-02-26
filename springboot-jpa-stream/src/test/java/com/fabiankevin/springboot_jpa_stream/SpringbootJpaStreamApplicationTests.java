@@ -27,7 +27,7 @@ class SpringbootJpaStreamApplicationTests {
     @Test
     void process_givenInactiveCustomers_thenShouldBeUpdatedToActive() {
         List<CustomerEntity> entities = new ArrayList<>();
-        IntStream.range(0, 1000)
+        IntStream.range(0, 1_000_000)
                 .boxed()
                 .map(i -> {
                     CustomerEntity customerEntity = new CustomerEntity();
