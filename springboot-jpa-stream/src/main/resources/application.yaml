@@ -2,8 +2,10 @@ spring:
   application:
     name: springboot-jpa-stream
   datasource:
-    url: jdbc:h2:mem:test-db
-    driver-class-name: org.h2.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    password: postgres
+    username: postgres
+    driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: false
     hibernate:
