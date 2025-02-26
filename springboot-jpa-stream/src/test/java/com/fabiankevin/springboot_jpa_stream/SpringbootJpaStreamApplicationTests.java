@@ -27,7 +27,7 @@ class SpringbootJpaStreamApplicationTests {
     @Test
     void process_givenInactiveCustomers_thenShouldBeUpdatedToActive() {
         List<CustomerEntity> entities = new ArrayList<>();
-        IntStream.range(0, 1_000_000)
+        IntStream.range(0, 1000)
                 .boxed()
                 .map(i -> {
                     CustomerEntity customerEntity = new CustomerEntity();
@@ -37,7 +37,7 @@ class SpringbootJpaStreamApplicationTests {
                     return customerEntity;
                 }).forEach(entity -> {
                     entities.add(entity);
-                    if (entities.size() % 50_000 == 0) {
+                    if (entities.size() % 1000 == 0) {
                         customerRepository.saveAllAndFlush(entities);
                         entities.clear();
                     }

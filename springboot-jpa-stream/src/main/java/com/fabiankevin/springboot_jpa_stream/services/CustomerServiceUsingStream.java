@@ -1,6 +1,7 @@
 package com.fabiankevin.springboot_jpa_stream.services;
 
 import com.fabiankevin.springboot_jpa_stream.models.CustomerStatus;
+import com.fabiankevin.springboot_jpa_stream.persistence.CardEntity;
 import com.fabiankevin.springboot_jpa_stream.persistence.CustomerEntity;
 import com.fabiankevin.springboot_jpa_stream.persistence.CustomerRepository;
 import jakarta.transaction.Transactional;
@@ -24,7 +25,7 @@ import java.util.stream.Stream;
 @Transactional
 public class CustomerServiceUsingStream {
     private final CustomerRepository customerRepository;
-    private static final int DEFAULT_CHUNK_SIZE = 10_000;
+    private static final int DEFAULT_CHUNK_SIZE = 50;
 
     public void process() {
         List<CustomerEntity> customerEntityList = new ArrayList<>();
@@ -36,10 +37,19 @@ public class CustomerServiceUsingStream {
                         customerEntityList.add(customerEntity);
                         if (customerEntityList.size() >= DEFAULT_CHUNK_SIZE) {
                             log.info("processing: {}", customerEntityList.size());
-                            Set<UUID> idsToUpdate = customerEntityList.stream()
-                                    .map(CustomerEntity::getId)
-                                    .collect(Collectors.toSet());
-                            customerRepository.updateStatus(CustomerStatus.ACTIVE, idsToUpdate);
+                            List<CustomerEntity> customersWithCreditCard = customerEntityList.stream()
+                                    .peek(customer -> {
+                                        CardEntity entity = new CardEntity();
+                                        entity.setType("CREDIT_CARD");
+                                        entity.setName(UUID.randomUUID().toString());
+                                        entity.setCardNo(UUID.randomUUID().toString());
+                                        entity.setCreatedAt(Instant.now());
+
+                                        customer.setStatus(CustomerStatus.ACTIVE);
+                                        customer.addCard(entity);
+                                    })
+                                    .toList();
+                            customerRepository.saveAllAndFlush(customersWithCreditCard);
                             customerEntityList.clear();
                         }
                         atomicInteger.incrementAndGet();
