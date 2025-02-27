@@ -33,15 +33,18 @@ services:
       - '--config.file=/etc/prometheus/prometheus.yml'
 
   grafana:
-    image: grafana/grafana-oss:8.5.2
+    image: grafana/grafana:latest
     container_name: grafana
     restart: unless-stopped
     volumes:
-      - ./data/grafana:/var/lib/grafana
+      - grafana-storage:/var/lib/grafana
       - ./grafana/provisioning:/etc/grafana/provisioning
 
     ports:
-      - 3000:3000
+      - "3000:3000"
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_SERVER_DOMAIN=localhost
+
+volumes:
+  grafana-storage:

@@ -25,7 +25,7 @@ import java.util.stream.Stream;
 @Transactional
 public class CustomerServiceUsingStream {
     private final CustomerRepository customerRepository;
-    private static final int DEFAULT_CHUNK_SIZE = 50;
+    private static final int DEFAULT_CHUNK_SIZE = 10_000;
 
     public void process() {
         List<CustomerEntity> customerEntityList = new ArrayList<>();
